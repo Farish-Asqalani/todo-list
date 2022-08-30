@@ -1,6 +1,6 @@
 <?php 
 
-$conn = mysqli_connect("localhost", "farish", "farish", "latihan");
+$conn = mysqli_connect("localhost", "root", "", "todo_list");
 
 function query ($query) {
     global $conn;
@@ -15,13 +15,35 @@ function query ($query) {
 
 
 function tambah ($data) {
-    if(isset($_POST["submit"])) {
-        global $conn;
+    global $conn;
+    if(isset($data["submit"])) {
         $list = $data["list"];
-        $query = "INSERT INTO todo VALUES(todo='$list')";
+        $query = "INSERT INTO todo VALUES('', '$list')";
+
         mysqli_query($conn, $query);
+        
         return mysqli_affected_rows($conn);
     }
 }
+
+function hapus ($id) {
+    global $conn;
+    mysqli_query($conn, "DELETE FROM todo WHERE id='$id'");
+
+    return mysqli_affected_rows($conn);
+}
+
+// function tambah($data) {
+//     global $conn;
+//     if (isset($data["submit"])) {
+//     $list = $data["todo"];
+
+//     $query = "INSERT INTO list ('todo') VALUES('$list')";
+
+//     mysqli_query($conn, $query);
+
+//     return mysqli_affected_rows($conn);
+// }
+// }
 
 ?>
